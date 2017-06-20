@@ -4,7 +4,6 @@
 </head>
 <body>
 <script>
-"use strict";
 (function(root) {
 
     function checkInt(value) {
@@ -852,6 +851,14 @@ document.body.onload = () => {
         alert('Invalid encryption key');
       } else {
         document.getElementsByTagName('html')[0].innerHTML = decryptedText;
+
+        const geval = window.execScript || eval;
+        Array.from(document.getElementsByTagName('script')).map(scriptElem => {
+            const script = document.createElement('script');
+            script.appendChild(document.createTextNode(scriptElem.textContent));
+            scriptElem.parentNode.removeChild(scriptElem);
+            document.body.appendChild(script);
+        });
       }
     }
   }
