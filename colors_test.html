@@ -1,0 +1,52 @@
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+  background: black;
+}
+</style>
+<canvas id="c"></canvas>
+<script>
+;(function() {
+  
+  'use strict';
+  
+  var c = document.getElementById('c');
+  var ctx = c.getContext('2d');
+  var w = c.width = window.innerWidth;
+  var h = c.height = window.innerHeight;
+  var itr = 500;
+  var off = 0;
+  var a = 0;
+  
+  requestAnimationFrame(function loop() {
+    requestAnimationFrame(loop);
+    
+    off -= 2;
+    
+    for(var i = 0; i < itr; i++) {
+
+      var s = 8;
+      var x = Math.random() * w;
+      var y = Math.random() * h;
+      var gx = Math.floor(x / s) * s;
+      var gy = Math.floor(y / s) * s;
+      var dx = gx - (w / 2);
+      var dy = gy - (h / 2);
+      var c = Math.sqrt(dx * dx + dy * dy); 
+
+      ctx.save();
+      ctx.fillStyle = 'hsl(' + (c + off) + ', 100%, 50%)';
+      ctx.translate(gx, gy);
+      ctx.fillRect(0, 0, s, s);
+      ctx.restore();
+
+    }
+  });
+  
+})();
+</script>
